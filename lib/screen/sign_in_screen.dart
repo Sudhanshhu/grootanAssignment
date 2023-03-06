@@ -33,7 +33,6 @@ class _SignInScreenState extends State<SignInScreen> {
         }
         return CommonBackground(
             logOutBtnEnable: false, title: "Login", child: const LoginPage());
-        // const LoginPage();
       },
     );
   }

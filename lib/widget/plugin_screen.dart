@@ -11,7 +11,6 @@ import 'package:grootan_test/screen/common_bg.dart';
 import 'package:grootan_test/widget/register_user_info.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-// show QrEmbeddedImageStyle, QrImage, QrPainter, QrVersions;
 
 import '../models/user_detail_model.dart';
 import 'comonwidget.dart';
@@ -36,8 +35,6 @@ class _QRImageState extends State<QRImage> {
         data: text,
         version: QrVersions.auto,
         gapless: false,
-        // color: hexToColor('#000000'),
-        // emptyColor: hexToColor('#ffffff'),
       ).toImage(300);
       final a = await image.toByteData(format: ImageByteFormat.png);
       return a!.buffer.asUint8List();
@@ -55,20 +52,6 @@ class _QRImageState extends State<QRImage> {
     rendomNumber = Random().nextInt(9999).toString();
     super.initState();
   }
-
-  // Future<Uint8List> _getWidgetImage() async {
-  //   try {
-  //     RenderRepaintBoundary boundary =
-  //         _renderObjectKey.currentContext.findRenderObject();
-  //     ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-  //     ByteData byteData =
-  //         await image.toByteData(format: ui.ImageByteFormat.png);
-  //     var pngBytes = byteData.buffer.asUint8List();
-  //     var bs64 = base64Encode(pngBytes);
-  //     debugPrint(bs64.length.toString());
-  //     return pngBytes;
-  //   } catch (exception) {}
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -130,13 +113,12 @@ class _QRImageState extends State<QRImage> {
       fill,
       fill,
     ];
-    const double fillPercent = 56.23; // fills 56.23% for container from bottom
+    const double fillPercent = 56.23;
     const double fillStop = (100 - fillPercent) / 100;
     final List<double> stops = [0.0, fillStop, fillStop, 1.0];
 
     return Stack(
       children: [
-        // generated number card
         Column(
           children: [
             const SizedBox(height: 150),
@@ -150,16 +132,8 @@ class _QRImageState extends State<QRImage> {
                   gradient: LinearGradient(
                     colors: gradient,
                     stops: stops,
-                    // end: Alignment.bottomCenter,
-                    // begin: Alignment.topCenter,
                     begin: const Alignment(0.8, 1.7),
                     end: const Alignment(-0.1, 2.0),
-                    // colors: [
-                    //   AppConstColor.primaryColor,
-                    //   Colors.indigo,
-                    //   const Color.fromARGB(255, 72, 66, 66),
-                    //   const Color.fromARGB(255, 11, 11, 11)
-                    // ],
                     transform: const GradientRotation(pi * 6 / 8),
                   ),
                 ),
@@ -185,7 +159,6 @@ class _QRImageState extends State<QRImage> {
             const Spacer(),
           ],
         ),
-        // QR code
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -202,7 +175,7 @@ class _QRImageState extends State<QRImage> {
                   child: QrImage(
                     data: rendomNumber,
                     size: 150,
-                    // You can include embeddedImageStyle Property if you
+
                     //wanna embed an image from your Asset folder
                     embeddedImageStyle: QrEmbeddedImageStyle(
                       size: const Size(
@@ -229,7 +202,6 @@ class _QRImageState extends State<QRImage> {
                   width: 250,
                   height: 50,
                   decoration: BoxDecoration(
-                    // color: Colors.white,
                     border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -241,15 +213,6 @@ class _QRImageState extends State<QRImage> {
                   )),
             )),
             const SizedBox(height: 20),
-
-            // button(
-            //     btnTitle: Text(
-            //         "Last login ${DateFormat("MMM d,h:mm a").format(DateTime.parse(lastLoginTime))}"),
-            //     fun: () {
-            //       Navigator.of(context)
-            //           .pushNamed("lastLoginPage", arguments: userDataList);
-            //     },
-            //     color: Colors.white)),
             if (task != null)
               SizedBox(
                 height: 80,
@@ -270,31 +233,23 @@ class _QRImageState extends State<QRImage> {
                     isLoding = true;
                   });
                   var image = await toQrImageData(rendomNumber);
-                  // file = File.fromRawPath(image);
-                  // if (file != null) {
+
                   print("image uploading");
                   uploadFile(image).then((value) async {
                     await UserHelper.saveUser(
                         context: context, user: widget.user, qrUrl: value);
-                    // showsnackBar(
-                    //     msg: "Successsfully uploaded", context: context);
+
                     setState(() {
                       saved = true;
                       isLoding = false;
                       task = null;
                     });
-
-                    // UserModel userModel = UserModel(ip: ip)
-                    // FirebaseApi.uploadUserStatus();
                   });
                 },
                 color: Colors.grey),
             const SizedBox(height: 80)
           ],
         )
-        // topStackWidget(Column(
-        //   children: [button(), button()],
-        // ))
       ],
     );
   }
@@ -323,9 +278,7 @@ class _QRImageState extends State<QRImage> {
                       child: Text(
                         "uploading file",
                         style: TextStyle(color: Colors.white),
-                      )
-                      // "Uploading $uploadingCount/${fileList.length} file"),
-                      )
+                      ))
                 ],
               ),
             );
@@ -373,102 +326,3 @@ Widget button(
     ),
   );
 }
-
-
-        // SingleChildScrollView(
-        //   child: Column(
-        //     children: [
-        //       const SizedBox(height: 150),
-        //       SizedBox(
-        //         height: 350,
-        //         width: width * 0.9,
-        //         child: Stack(
-        //           clipBehavior: Clip.none,
-        //           children: [
-        //             Padding(
-        //               padding: const EdgeInsets.all(12.0),
-        //               child: Container(
-        //                 height: 250,
-        //                 width: double.infinity,
-        //                 decoration: BoxDecoration(
-        //                   gradient: LinearGradient(
-        //                     begin: const Alignment(-1.0, 0.0),
-        //                     end: const Alignment(1.0, 0.0),
-        //                     colors: [AppConstColor.primaryColor, Colors.indigo],
-        //                     transform: const GradientRotation(pi / 4),
-        //                   ),
-        //                 ),
-        //                 child: Padding(
-        //                   padding: const EdgeInsets.all(8.0),
-        //                   child: Column(
-        //                     children: [
-        //                       const Spacer(),
-        //                       Text(
-        //                         "Generated number",
-        //                         style: kBoldTextStyle,
-        //                       ),
-        //                       Text(
-        //                         rendomNumber,
-        //                         style: kBoldTextStyle,
-        //                       ),
-        //                       const SizedBox(height: 25)
-        //                     ],
-        //                   ),
-        //                 ),
-        //               ),
-        //             ),
-        //             Positioned(
-        //               top: -50,
-        //               left: width / 4,
-        //               child: Container(
-        //                 decoration: BoxDecoration(
-        //                     color: Colors.white,
-        //                     borderRadius: BorderRadius.circular(10.0)),
-        //                 child: Padding(
-        //                   padding: const EdgeInsets.all(8.0),
-        //                   child: QrImage(
-        //                     data: rendomNumber,
-        //                     size: 150,
-        //                     // You can include embeddedImageStyle Property if you
-        //                     //wanna embed an image from your Asset folder
-        //                     embeddedImageStyle: QrEmbeddedImageStyle(
-        //                       size: const Size(
-        //                         100,
-        //                         100,
-        //                       ),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //       TextButton(
-        //           onPressed: () async {
-        //             var image = await toQrImageData(" Default Address");
-        //             // file = File.fromRawPath(image);
-        //             // if (file != null) {
-        //             print("image uploading");
-        //             uploadFile(image);
-        //             // }
-        //           },
-        //           child: const Text("Save QR COde")),
-        //       TextButton(
-        //           onPressed: () async {
-        //             var image = await toQrImageData(" Default Address");
-        //             imageinUint = image;
-        //             file = File.fromRawPath(image);
-        //             if (file != null) {
-        //               print("image uploading");
-        //               // uploadFile(file!);
-        //             }
-        //             setState(() {});
-        //           },
-        //           child: const Text("Generate Image")),
-        //       if (imageinUint != null) Image.memory(imageinUint!)
-        //     ],
-        //   ),
-        // ),
-
-

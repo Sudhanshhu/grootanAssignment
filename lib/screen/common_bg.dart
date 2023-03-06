@@ -15,7 +15,7 @@ class CommonBackground extends StatelessWidget {
       required this.child,
       required this.logOutBtnEnable})
       : super(key: key);
-  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +50,6 @@ class CommonBackground extends StatelessWidget {
                                         color: Colors.white, fontSize: 16),
                                   ))),
                         )),
-                    // const SizedBox(
-                    //   height: 70,
-                    //   width: double.infinity,
-                    // ),
                     Container(
                         height: 50,
                         width: double.infinity,

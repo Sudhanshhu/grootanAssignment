@@ -61,7 +61,7 @@ class _LastLoginPageState extends State<LastLoginPage>
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -75,7 +75,6 @@ class _LastLoginPageState extends State<LastLoginPage>
 
   @override
   Widget build(BuildContext context) {
-    // var yester = now.subtract(const Duration(days: 1));
     userModelList =
         ModalRoute.of(context)!.settings.arguments as List<UserModel>;
     filteredList(userModelList);
@@ -101,7 +100,6 @@ class _LastLoginPageState extends State<LastLoginPage>
                           currentIndex = value;
                           tabController!.index = value;
                         });
-                        // print("value is $value");
                       },
                       controller: tabController,
                       tabs: const [
@@ -125,87 +123,12 @@ class _LastLoginPageState extends State<LastLoginPage>
                 physics: const NeverScrollableScrollPhysics(),
                 controller: tabController,
                 children: [
-                  // if (currentIndex == 0)
                   displayLoginDetailAcTODayOfSignIn(filterList),
-                  // if (currentIndex == 1)
                   displayLoginDetailAcTODayOfSignIn(filterList),
-                  // if (currentIndex == 2)
                   displayLoginDetailAcTODayOfSignIn(filterList),
                 ]),
           ),
-        )
-        // DefaultTabController(
-        //     initialIndex: currentIndex,
-        //     length: 3,
-        //     child: Scaffold(
-        //       backgroundColor: AppConstColor.secondaryColor,
-        //       appBar: PreferredSize(
-        //         preferredSize: const Size.fromHeight(60),
-        //         child: AppBar(
-        //           backgroundColor: AppConstColor.secondaryColor,
-        //           automaticallyImplyLeading: false,
-        //           bottom: TabBar(
-        //               onTap: (value) {
-        //                 print("vlue is $value");
-        //               },
-        //               physics: const NeverScrollableScrollPhysics(),
-        //               isScrollable: false,
-        //               indicatorColor: Colors.white,
-        //               tabs: [
-        //                 Padding(
-        //                   padding: const EdgeInsets.only(bottom: 4.0),
-        //                   child: TextButton(
-        //                       onPressed: () {
-        //                         if (currentIndex != 0) {
-        //                           setState(() {
-        //                             currentIndex = 0;
-        //                           });
-        //                         }
-        //                       },
-        //                       child: const Text("Today")),
-        //                 ),
-        //                 TextButton(
-        //                   onPressed: () {
-        //                     if (currentIndex != 1) {
-        //                       setState(() {
-        //                         currentIndex = 1;
-        //                       });
-        //                     }
-        //                   },
-        //                   child: const Padding(
-        //                     padding: EdgeInsets.only(bottom: 4.0),
-        //                     child: Text("Yesterday"),
-        //                   ),
-        //                 ),
-        //                 TextButton(
-        //                   onPressed: () {
-        //                     if (currentIndex != 2) {
-        //                       setState(() {
-        //                         currentIndex = 2;
-        //                       });
-        //                     }
-        //                   },
-        //                   child: const Padding(
-        //                     padding: EdgeInsets.only(bottom: 4.0),
-        //                     child: Text("Others"),
-        //                   ),
-        //                 ),
-        //               ]),
-        //           // title: const Text("Tabs Demo"),
-        //         ),
-        //       ),
-        //       body: TabBarView(
-        //         children: [
-        //           displayLoginDetailAcTODayOfSignIn(filterList),
-        //           displayLoginDetailAcTODayOfSignIn(filterList),
-        //           displayLoginDetailAcTODayOfSignIn(filterList),
-        //         ],
-        //       ),
-        //     )
-        //     // child:
-        //     ),
-
-        );
+        ));
   }
 
   SingleChildScrollView displayLoginDetailAcTODayOfSignIn(
@@ -218,9 +141,7 @@ class _LastLoginPageState extends State<LastLoginPage>
               children: userDetail
                   .map(
                       (e) => UserDetailCard(userModel: e, textStyle: textStyle))
-                  .toList()
-              // UserDetailCard(textStyle: textStyle),
-              ,
+                  .toList(),
             )));
   }
 }
@@ -248,7 +169,6 @@ class UserDetailCard extends StatelessWidget {
               Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    // color: Colors.red,
                   ),
                   width: double.infinity,
                   height: bigBoxHeight,
@@ -270,7 +190,6 @@ class UserDetailCard extends StatelessWidget {
                             children: [
                               Text(
                                 DateFormat.jm().format(dateTime),
-                                // dateTime.fo,
                                 style: textStyle,
                               ),
                               Text(
@@ -312,10 +231,6 @@ class UserDetailCard extends StatelessWidget {
                             ),
                           );
                         },
-                        // When dealing with networks it completes with two states,
-                        // complete with a value or completed with an error,
-                        // So handling errors is very important otherwise it will crash the app screen.
-                        // I showed dummy images from assets when there is an error, you can show some texts or anything you want.
                         errorBuilder: (context, exception, stackTrace) {
                           return const Text("Image not found");
                         },
@@ -328,68 +243,3 @@ class UserDetailCard extends StatelessWidget {
     );
   }
 }
-
-//  Column(
-//   children: [
-//     SizedBox(
-//       height: 90,
-//       child: Row(
-//         children: [
-//           SizedBox(
-//             width: 120,
-//             child: Column(
-//               children: [
-//                 const Spacer(),
-//                 Column(
-//                   children: [
-//                     Container(
-//                         decoration: BoxDecoration(
-//                             borderRadius: BorderRadius.circular(8),
-//                             color: Colors.grey),
-//                         height: 70,
-//                         child: Row(
-//                           children: [
-//                             Padding(
-//                               padding: const EdgeInsets.all(8.0),
-//                               child: Column(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceAround,
-//                                 crossAxisAlignment:
-//                                     CrossAxisAlignment.start,
-//                                 children: [
-//                                   Text("Time", style: textStyle),
-//                                   Text("IP : 254.254.2325",
-//                                       style: textStyle),
-//                                   Text("location", style: textStyle)
-//                                 ],
-//                               ),
-//                             ),
-//                             const Spacer(),
-//                             Padding(
-//                               padding: const EdgeInsets.all(8.0),
-//                               child: Container(
-//                                 color: Colors.amber,
-//                                 height: 80,
-//                                 width: 80,
-//                               ),
-//                             )
-//                           ],
-//                         )),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-//     Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: Container(
-//         color: Colors.amber,
-//         height: 80,
-//         width: 80,
-//       ),
-//     )
-//   ],
-// ),

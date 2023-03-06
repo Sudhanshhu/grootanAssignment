@@ -55,13 +55,9 @@ class _LoginPageState extends State<LoginPage> {
           codeSent = true;
           authStatus = "OTP has been successfully send";
         });
-        // otpDialogBox(context).then((value) {});
       },
       codeAutoRetrievalTimeout: (String verId) {
         verificationId = verId;
-        // setState(() {
-        //   authStatus = "TIMEOUT";
-        // });
       },
     );
   }
@@ -70,18 +66,15 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: otp);
-      // FirebaseAuth.instance.currentUser!.linkWithCredential(credential);
+
       await FirebaseAuth.instance
           .signInWithCredential(credential)
-          // .updatePhoneNumber(credential)
           .then((value) {
         showsnackBar(
             msg: "Mobile number successfully registered",
             title: "Success",
             color: Colors.green);
-        // setState(() {
-        //   isLoading = false;
-        // });
+
         User? user = FirebaseAuth.instance.currentUser;
         Get.offAll(() => QRImage(user: user!));
       }).catchError((onError) {
@@ -107,58 +100,7 @@ class _LoginPageState extends State<LoginPage> {
           title: "Error",
           color: Colors.red);
     }
-    // await FirebaseAuth.instance
-    //     .signInWithCredential(
-    // //       PhoneAuthProvider.getCredential(
-    // //   verificationId: verificationId,
-    // //   smsCode: otp,
-    // // )
-    // );
   }
-
-  // otpDialogBox(BuildContext context) {
-  //   return showDialog(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text('Enter your OTP'),
-  //           content: Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: TextFormField(
-  //               keyboardType: TextInputType.number,
-  //               textAlign: TextAlign.center,
-  //               maxLength: 6,
-  //               style: const TextStyle(
-  //                   fontSize: 30,
-  //                   fontWeight: FontWeight.bold,
-  //                   letterSpacing: 15),
-  //               decoration: const InputDecoration(
-  //                 border: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.all(
-  //                     Radius.circular(30),
-  //                   ),
-  //                 ),
-  //               ),
-  //               onChanged: (value) {
-  //                 otp = value;
-  //               },
-  //             ),
-  //           ),
-  //           contentPadding: const EdgeInsets.all(10.0),
-  //           actions: <Widget>[
-  //             OutlinedButton(
-  //               onPressed: () {
-  //                 verifyPhoneNo(otp);
-  //               },
-  //               child: const Text(
-  //                 'Submit',
-  //               ),
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
 
   @override
   void dispose() {
@@ -254,197 +196,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-// class VerifyMobileNumber extends StatefulWidget {
-//   const VerifyMobileNumber({super.key});
-
-//   @override
-//   State<VerifyMobileNumber> createState() => _VerifyMobileNumberState();
-// }
-
-// class _VerifyMobileNumberState extends State<VerifyMobileNumber> {
-//   String? phoneNumber;
-//   String verificationId = "";
-//   String otp = "";
-//   String authStatus = "";
-//   bool isLoading = false;
-//   TextEditingController mobileNumberController = TextEditingController();
-
-//   Future<void> verifyPhoneNumber(BuildContext context, phoneNumber) async {
-//     setState(() {
-//       isLoading = true;
-//     });
-//     await FirebaseAuth.instance.verifyPhoneNumber(
-//       phoneNumber: phoneNumber,
-//       timeout: const Duration(seconds: 100),
-//       verificationCompleted: (AuthCredential authCredential) {
-//         showsnackBar(
-//             title: "Success", msg: "Mobile number successfully verified");
-//       },
-//       verificationFailed: (FirebaseAuthException authException) {
-//         print("authException is $authException");
-//         showsnackBar(
-//             title: "Error",
-//             msg: "Authentication failed ${authException.code}",
-//             color: Colors.red);
-//         setState(() {
-//           authStatus = "Authentication failed";
-//           isLoading = false;
-//         });
-//       },
-//       codeSent: (verId, forceCodeResent) {
-//         verificationId = verId;
-//         setState(() {
-//           authStatus = "OTP has been successfully send";
-//         });
-//         otpDialogBox(context).then((value) {});
-//       },
-//       codeAutoRetrievalTimeout: (String verId) {
-//         verificationId = verId;
-//         setState(() {
-//           authStatus = "TIMEOUT";
-//         });
-//       },
-//     );
-//   }
-
-//   Future<void> verifyPhoneNo(String otp) async {
-//     try {
-//       final PhoneAuthCredential credential = PhoneAuthProvider.credential(
-//           verificationId: verificationId, smsCode: otp);
-//       FirebaseAuth.instance.signInWithCredential(credential);
-
-//       // FirebaseAuth.instance.currentUser!
-//       //     .updatePhoneNumber(credential)
-//       //     .then((value) {
-//       //   showsnackBar(
-//       //       msg: "Mobile nuber successfully registered 555", context: context);
-//       //   setState(() {
-//       //     isLoading = false;
-//       //   });
-//       // });
-//     } on FirebaseAuthException catch (e) {
-//       print("Error in Phone otp");
-//       print(e.code);
-//       showsnackBar(
-//         title: "Error",
-//         msg: "Otp you entered is wrong please try again",
-//       );
-//     }
-//   }
-
-//   otpDialogBox(BuildContext context) {
-//     return showDialog(
-//         context: context,
-//         barrierDismissible: false,
-//         builder: (BuildContext context) {
-//           return AlertDialog(
-//             title: const Text('Enter your OTP'),
-//             content: Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: TextFormField(
-//                 keyboardType: TextInputType.number,
-//                 textAlign: TextAlign.center,
-//                 maxLength: 6,
-//                 style: const TextStyle(
-//                     fontSize: 30,
-//                     fontWeight: FontWeight.bold,
-//                     letterSpacing: 15),
-//                 decoration: const InputDecoration(
-//                   border: OutlineInputBorder(
-//                     borderRadius: BorderRadius.all(
-//                       Radius.circular(30),
-//                     ),
-//                   ),
-//                 ),
-//                 onChanged: (value) {
-//                   otp = value;
-//                 },
-//               ),
-//             ),
-//             contentPadding: const EdgeInsets.all(10.0),
-//             actions: <Widget>[
-//               OutlinedButton(
-//                 onPressed: () {
-//                   verifyPhoneNo(otp);
-//                 },
-//                 child: const Text(
-//                   'Submit',
-//                 ),
-//               ),
-//             ],
-//           );
-//         });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: <Widget>[
-//           SizedBox(
-//             height: MediaQuery.of(context).size.height * 0.2,
-//           ),
-//           const Text(
-//             "Please verify your mobile number",
-//             textAlign: TextAlign.center,
-//             style: TextStyle(
-//               color: Colors.cyan,
-//               fontSize: 30,
-//               fontWeight: FontWeight.bold,
-//             ),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.all(16.0),
-//             child: TextField(
-//               keyboardType: TextInputType.phone,
-//               controller: mobileNumberController,
-//               decoration: InputDecoration(
-//                   border: const OutlineInputBorder(
-//                     borderRadius: BorderRadius.all(
-//                       Radius.circular(30),
-//                     ),
-//                   ),
-//                   filled: true,
-//                   // prefixIcon: const Icon(
-//                   //   Icons.phone_iphone,
-//                   //   color: Colors.cyan,
-//                   // ),
-//                   prefix: const Text(
-//                     "+91",
-//                     style: TextStyle(color: Color.fromARGB(255, 206, 28, 28)),
-//                   ),
-//                   hintStyle: TextStyle(color: Colors.grey[800]),
-//                   hintText: "Enter your mobile number",
-//                   fillColor: Colors.white70),
-//               onChanged: (value) {
-//                 phoneNumber = value;
-//               },
-//             ),
-//           ),
-//           const SizedBox(
-//             height: 10.0,
-//           ),
-//           if (isLoading) const CircularProgressIndicator(),
-//           if (!isLoading)
-//             OutlinedButton(
-//               onPressed: () => (mobileNumberController.text.length != 10)
-//                   ? showsnackBar(
-//                       title: "Error",
-//                       msg: "plese enter  valid mobile number",
-//                       color: Colors.red)
-//                   : verifyPhoneNumber(context, mobileNumberController.text),
-//               child: const Text(
-//                 "Generate OTP",
-//                 style: TextStyle(color: Colors.black),
-//               ),
-//             ),
-//           const SizedBox(
-//             height: 20,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

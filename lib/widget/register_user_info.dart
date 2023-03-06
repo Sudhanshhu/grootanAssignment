@@ -44,7 +44,6 @@ class UserHelper {
     try {
       locationData = await location.getLocation();
     } catch (e) {
-      // ignore: use_build_context_synchronously
       showsnackBar(
           title: "Error", msg: "Error in getting locations", color: Colors.red);
     }
@@ -62,12 +61,6 @@ class UserHelper {
         loginTime: DateTime.now().toIso8601String(),
         qrUrl: qrUrl ?? "");
 
-    // Map<String, dynamic> userData = {
-    //   "userId": user.uid,
-    //   "ip": ipv4,
-    //   "locality": placemarks.isNotEmpty ? placemarks[0].locality : "",
-    //   "loginTime": DateTime.now().toIso8601String()
-    // };
     if (qrUrl != null) {
       await userRef.update({
         "userDetail": FieldValue.arrayUnion([userModel.toMap()])
